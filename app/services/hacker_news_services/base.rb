@@ -1,15 +1,12 @@
 module HackerNewsServices
   class Base
-    attr_reader :url, :opts
+    attr_accessor :crawler
 
-    def initialize(url, opts = {})
-      @url = url
-      @opts = opts
+    def initialize(crawler)
+      @crawler = crawler
     end
 
-    private
-
-    def get
+    def data
       raise NotImplementedError
     end
   end

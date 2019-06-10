@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-describe HackerNewsServices::Crawler do
+describe HackerNewsServices::BestNews do
 
   before(:all) do
-    @crawler = HackerNewsServices::Crawler.new('https://news.ycombinator.com/best')
   end
 
-  describe '#latest_news' do
+  describe '#data' do
     before(:each) do
-      @results = @crawler.latest_news(limit:2)
+      crawler = HackerNewsServices::Crawlers::BestNews.new('https://news.ycombinator.com/best')
+      @results = crawler.data(limit:2)
     end
 
     it 'returns data' do

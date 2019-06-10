@@ -7,6 +7,8 @@ module HackerNewsServices
       @opts = opts
     end
 
+    private
+
     def get
       raise NotImplementedError
     end

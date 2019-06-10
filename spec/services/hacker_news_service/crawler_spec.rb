@@ -7,16 +7,20 @@ describe HackerNewsServices::Crawler do
   end
 
   describe '#latest_news' do
+    before(:each) do
+      @results = @crawler.latest_news(limit:2)
+    end
+
     it 'returns data' do
-      expect(@crawler.latest_news.blank?).to be(false)
+      expect(@results.blank?).to be(false)
     end
 
     it 'returns an array' do
-      expect(@crawler.latest_news.is_a? Array).to be(true)
+      expect(@results.is_a? Array).to be(true)
     end
 
     it 'returns an array of HackerNew' do
-      expect(@crawler.latest_news.first.is_a? HackerNew).to be(true)
+      expect(@results.first.is_a? HackerNew).to be(true)
     end
   end
 end

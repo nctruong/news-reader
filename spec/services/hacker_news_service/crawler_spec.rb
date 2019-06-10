@@ -1,9 +1,9 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe HackerNewsService::Crawler do
+describe HackerNewsServices::Crawler do
 
   before(:all) do
-    @crawler = HackerNewsService::Crawler.new('https://news.ycombinator.com/best')
+    @crawler = HackerNewsServices::Crawler.new('https://news.ycombinator.com/best')
   end
 
   describe '#latest_news' do

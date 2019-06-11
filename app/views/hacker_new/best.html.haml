@@ -1,0 +1,9 @@
+.wrapper
+  - @results.each do |news|
+    .col-md-12.news-row.margin-bottom-5
+      .col-md-12
+        %h2= news.title
+      .col-md-12
+        .image{style:"background-image: url(#{news.image || '/assets/no-image.png'})"}
+        .excerpt
+          %em= news.excerpt

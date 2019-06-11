@@ -5,7 +5,8 @@ module HackerNewsServices::Crawlers::HtmlInspectors
       {
           title:   params[:title] || title,
           image:   params[:image] || image,
-          excerpt: params[:excerpt] || excerpt
+          excerpt: params[:excerpt] || excerpt,
+          link:    params[:link]
       }
     end
   end

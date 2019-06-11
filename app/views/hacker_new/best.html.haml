@@ -1,9 +1,23 @@
-.wrapper
-  - @results.each do |news|
-    .col-md-12.news-row.margin-bottom-5
-      .col-md-12
-        %h2= news.title
-      .col-md-12
-        .image{style:"background-image: url(#{news.image || '/assets/no-image.png'})"}
-        .excerpt
-          %em= news.excerpt
+.toast{"aria-atomic" => "true", "aria-live" => "assertive", :role => "alert", data: { delay:"10000"}}
+  .toast-header
+    %strong.mr-auto Notification
+    %small
+    %button.ml-2.mb-1.close{"aria-label" => "Close", "data-dismiss" => "toast", :type => "button"}
+      %span{"aria-hidden" => "true"} ×
+  .toast-body
+    System is inspecting data...Please reload page or click on it again.
+.wrapper.row
+  .sidebar.col.col-lg-4.col-md-12.col-sm-12.col-xs-12
+    - @results.each do |news|
+      .news-row.margin-bottom-5.no-padding.row
+        .image{style:"background-image: url(#{news.image})", class:"#{news.image.blank? ? 'hidden' : ''}"}
+        .margin-top-5
+          %h2= link_to news.title, news.link, target: '_blank', class: 'hacker-news-link', data:{image: news.image, title: news.title}
+        .excerpt= news.excerpt
+        .single-news{style:'display:none'}
+
+  .single-news.col.col-lg-8.col-md-12.col-sm-12.col-xs-12
+    = render partial: 'single_news', locals: { news: @results.first }
+
+
+

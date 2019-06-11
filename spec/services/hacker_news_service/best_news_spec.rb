@@ -7,8 +7,8 @@ describe HackerNewsServices::BestNews do
 
   describe '#data' do
     before(:each) do
-      crawler = HackerNewsServices::Crawlers::BestNews.new('https://news.ycombinator.com/best')
-      @results = crawler.data(limit:2)
+      crawler = HackerNewsServices::Crawlers::BestNews.new
+      @results = crawler.data
     end
 
     it 'returns data' do

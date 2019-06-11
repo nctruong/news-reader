@@ -17,3 +17,37 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+
+
+$(document).delegate('.hacker-news-link', 'click', function(e) {
+  e.preventDefault();
+  var self = this;
+  $.get('/hacker_new/show', {
+    title: $(self).attr('data-title'),
+    image: $(self).attr('data-image'),
+    link: $(self).attr('href')
+  }, function(data, status){
+    if (data.state === 'done') {
+      var renderNews;
+      if (window.innerWidth <= 768) {
+        renderNews = $(self).parents('.news-row').find('.single-news');
+        renderNews.toggle();
+      } else {
+        renderNews = $('.wrapper .single-news');
+      }
+      renderNews.html(data.body);
+
+      var img = $(self).parents('.news-row').find('.image');
+      var excerpt = $(self).parents('.news-row').find('.excerpt');
+
+      console.log(data.image);
+      if (data.image !== null) {
+        img.removeClass('hidden');
+        img.css('background-image', 'url(' + data.image + ')')
+      }
+      excerpt.html(data.excerpt);
+    } else {
+      $('.toast').toast('show')
+    }
+  })
+});

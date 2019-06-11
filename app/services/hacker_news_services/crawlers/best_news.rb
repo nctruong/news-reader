@@ -2,11 +2,20 @@ module HackerNewsServices::Crawlers
   class BestNews < NewsList
     PATH = 'table.itemlist tr.athing td.title a.storylink'.freeze
 
+    def initialize
+      @url = 'https://news.ycombinator.com/best'
+      @inspector = HackerNewsServices::Crawlers::HtmlInspectors::BestNews
+    end
+
     private
 
     def create_element(tag)
-      attr = inspector.new(get_html tag.href).to_h(title: tag.title)
-      HackerNew.new attr
+      if Rails.cache.exist? tag.href
+        return HackerNew.cache(tag.href)
+      else
+        HackerNewsWorker.perform_async(inspector, tag.href)
+        return HackerNew.new(title: tag.title, link: tag.href, excerpt: 'inspecting')
+      end
     end
 
     def collect_tags(opts = {})

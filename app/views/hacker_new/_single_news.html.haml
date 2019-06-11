@@ -1,0 +1,6 @@
+.col-md-12
+  %h2= news.title
+- unless news.image.nil?
+  .single_image{style:"background-image: url(#{news.image})"}
+.single_content.margin-top-5
+  = raw news.simplified_content

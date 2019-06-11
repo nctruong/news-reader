@@ -3,7 +3,7 @@ require_relative 'boot'
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
-# require "active_job/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
@@ -16,6 +16,9 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require 'nokogiri'
+require 'open-uri'
+
 module NewsReader
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -25,5 +28,7 @@ module NewsReader
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.eager_load_paths << Rails.root.join("lib")
+    config.active_job.queue_adapter = :sidekiq
   end
 end
